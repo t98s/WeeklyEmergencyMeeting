@@ -1,0 +1,21 @@
+[package]
+name = "weeklyemergencymeeting"
+version = "0.1.0"
+edition = "2018"
+license-file = "LICENSE"
+repository = "https://github.com/crssnky/WeeklyEmergencyMeeting"
+authors = ["crssnky <vindicare28@gmail.com>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serenity = {version = "0.10.9", features = ["framework", "standard_framework"]}
+# serenity_utils = "0.6.1"
+
+tokio = {version = "1.11.0", features = ["macros", "rt-multi-thread"]}
+tokio_schedule = "0.3.0"
+chrono = "0.4"
+
+job_scheduler = "*"
+
+rust-ini = "0.17"
