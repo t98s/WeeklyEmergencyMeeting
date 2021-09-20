@@ -56,17 +56,21 @@ async fn main() {
     .expect("Err creating client.");
   let http = client.cache_and_http.http.clone();
 
-  let job = every(1).week().on(w).at(hour, minute).perform(|| async {
-    println!("Start announce");
-    match c.say(&http, message).await {
-      Ok(mes) => {
-        println!("send message: {:?}", mes);
+  let job = every(1)
+    .week()
+    .on(w)
+    .at(hour, minute, 00)
+    .perform(|| async {
+      println!("Start announce");
+      match c.say(&http, message).await {
+        Ok(mes) => {
+          println!("send message: {:?}", mes);
+        }
+        Err(err) => {
+          println!("send message: {:?}", err);
+        }
       }
-      Err(err) => {
-        println!("send message: {:?}", err);
-      }
-    }
-  });
+    });
 
   tokio::select! {
     _ = job => {
