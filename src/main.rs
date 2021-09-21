@@ -48,6 +48,8 @@ async fn main() {
     panic!("weekDay can set Mon,Tue,Wed,Thu,Fri,Sat,Sun in conf.");
   };
 
+  println!("announce: {}:{} on {:?}", hour, minute, w);
+
   let framework = StandardFramework::new();
   let mut client = Client::builder(&token)
     .event_handler(Handler)
