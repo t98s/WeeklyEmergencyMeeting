@@ -8,4 +8,4 @@
 - channelId
   - bot says to this channel.
 - weekDay, hour, minute
-  - bot says in this time.
+  - bot says at this time.
