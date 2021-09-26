@@ -5,14 +5,8 @@ use serenity::prelude::*;
 use crate::store::message_store::MessageStore;
 
 #[command]
-async fn change_message(ctx: &Context, msg: &Message, mut args: Args) -> CommandResult {
-  let new_message = match args.single_quoted::<String>() {
-    Ok(x) => x,
-    Err(_) => {
-      msg.reply(ctx, "can not convert new message").await?;
-      return Ok(());
-    }
-  };
+async fn change_message(ctx: &Context, msg: &Message, args: Args) -> CommandResult {
+  let new_message = args.message();
 
   let message_lock = {
     let data_read = ctx.data.read().await;
@@ -23,7 +17,7 @@ async fn change_message(ctx: &Context, msg: &Message, mut args: Args) -> Command
   };
   {
     let mut mes = message_lock.write().await;
-    *mes = new_message;
+    *mes = String::from(new_message);
   }
   msg
     .reply(ctx, format!("new message: {}", message_lock.read().await))
