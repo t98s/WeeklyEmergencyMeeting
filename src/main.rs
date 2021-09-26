@@ -77,7 +77,7 @@ async fn main() {
   {
     // init store
     let mut data = client.data.write().await;
-    data.insert::<MessageStore>(Arc::new(RwLock::new(String::from(""))));
+    data.insert::<MessageStore>(Arc::new(RwLock::new(String::from(mes))));
   }
 
   let http = client.cache_and_http.http.clone();
