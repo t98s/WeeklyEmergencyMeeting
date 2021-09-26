@@ -18,5 +18,3 @@ chrono = "0.4"
 job_scheduler = "*"
 
 rust-ini = "0.17"
-
-state = { version = "0.5", features = ["tls"] }
