@@ -74,9 +74,10 @@ async fn main() {
     .framework(framework)
     .await
     .expect("Err creating client.");
+  let data = client.data.clone();
   {
     // init store
-    let mut data = client.data.write().await;
+    let mut data = data.write().await;
     data.insert::<MessageStore>(Arc::new(RwLock::new(String::from(mes))));
   }
 
@@ -87,6 +88,14 @@ async fn main() {
     .on(w)
     .at(hour, minute, 00)
     .perform(|| async {
+      let mes_lock = {
+        let data_read = data.read().await;
+        data_read
+          .get::<MessageStore>()
+          .expect("Expected MessageStore in TypeMap.")
+          .clone()
+      };
+      let mes = mes_lock.read().await;
       println!("Start announce: {:?}", mes);
       match c.say(&http, mes).await {
         Ok(mes) => {
