@@ -4,5 +4,5 @@ use tokio::sync::RwLock;
 
 pub struct MessageStore;
 impl TypeMapKey for MessageStore {
-  type Value = Arc<RwLock<String>>;
+    type Value = Arc<RwLock<String>>;
 }

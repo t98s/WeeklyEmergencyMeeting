@@ -20,6 +20,9 @@ use wem::commands::{change_message::CHANGE_MESSAGE_COMMAND, show_message::SHOW_M
 use wem::store::message_store::MessageStore;
 use wem::utils::week_str_to_week_day;
 
+extern crate clap;
+use clap::{App, Arg};
+
 use std::sync::Arc;
 
 #[group]
@@ -48,7 +51,21 @@ impl EventHandler for Handler {
 async fn main() {
   println!("Hello, this is WeeklyEmergencyMeeting.");
 
-  let conf = Ini::load_from_file("config.ini").unwrap();
+  let app = App::new("WeeklyEmergencyMeeting").version("1.2.0").arg(
+    Arg::with_name("configure")
+      .short("c")
+      .long("conf")
+      .takes_value(true),
+  );
+  let matches = app.get_matches();
+  let conf_name = if let Some(c) = matches.value_of("configure") {
+    c
+  } else {
+    "config.ini"
+  };
+  println!("use conf: {}", conf_name);
+
+  let conf = Ini::load_from_file(conf_name).unwrap();
   let section = conf.section(Some("Discord")).unwrap();
   let token = section.get("token").unwrap();
   let week_day = section.get("weekDay").unwrap();

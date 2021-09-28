@@ -1,6 +1,6 @@
 [package]
 name = "weeklyemergencymeeting"
-version = "1.0.0"
+version = "1.2.0"
 edition = "2018"
 license-file = "LICENSE"
 repository = "https://github.com/crssnky/WeeklyEmergencyMeeting"
@@ -18,3 +18,5 @@ chrono = "0.4"
 job_scheduler = "*"
 
 rust-ini = "0.17"
+
+clap = "2.33.3"
